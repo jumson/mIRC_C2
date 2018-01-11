@@ -8,4 +8,11 @@ The 'official' summary as I wrote it a year ago is as follows:
 >The mIRC C2 Box v1.1 is a mIRC interface which allows the user to publish standard reports to several mIRC channels and users simultaneously and in a distinct color pattern to characterize it from the regular channel chatter. These reports can automatically be sent to a file and attached to emails for further distribution and knowledge management. 
 >Additionally, the interface can alert the user when certain reports are generated in any channel in which they participate.
 
-!#[Top Slide](media/top_slide.png)
+
+<img src="media/top_slide.png" style="width:400px" alt="info slide1"/>
+
+* * *
+<img src="media/features_slide.png" style="width:400px" alt="info slide2"/>
+
+* * *
+<img src="media/moreReports.png" style="width:300px" alt="info slide3"/>
