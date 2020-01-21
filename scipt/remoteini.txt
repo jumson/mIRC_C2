@@ -1,0 +1,39 @@
+alias update {
+  showlog $chan 500
+}
+
+//ensure the $scriptdir variable is set already in var
+// something: %scriptdir "C:\Users\munso\Desktop\script"
+ON 1:CONNECT: {
+  //  load -rs $mircdir $+ scripts\mIRC_C2_Box.mrc
+  //  load -rs $mircdir $+ scripts\c2Report-5ws.mrc
+  //  load -rs $mircdir $+ scripts\c2Report-9line.mrc
+  // load -rs $mircdir $+ scripts\c2Report-spot.mrc
+  //  load -rs $mircdir $+ scripts\c2Report-clears.mrc
+  load -rs $scriptdir $+ \mIRC_C2_Box.mrc
+  load -rs $scriptdir $+ \c2Report-5ws.mrc
+  load -rs $scriptdir $+ \c2Report-9line.mrc
+  load -rs $scriptdir $+ \c2Report-spot.mrc
+  load -rs $scriptdir $+ \c2Report-clears.mrc
+}
+
+ON 1:JOIN:*: {
+  IF ($nick == $me) {
+    update
+  }
+}
+
+alias beeps {
+  while ($dialog(mc2).active == $false) {
+    beep
+  }
+}
+
+alias closeit {
+  echo -s $fopen(aguy)
+  if ($fopen(aguy) == aguy) {
+    echo aguy is open!!!
+    fclose aguy
+    echo -s aguy is closed
+  }
+}

@@ -237,17 +237,32 @@ alias loadUsers {
   hfree handleHash -s
 }
 
+;this creates all the sizing and spacing variables adjusted relative to base_ and size_ defaults
+ON 1:START: {
+
+  set %tab60_x %base_x + 1
+  set %tab60_y %base_y + 1
+  set %tab60_width %base_width - 1
+  set %tab60_height %base_height - 1
+  set %list63_x %tab60_x + 1
+  set %list63_y %tab60_y + 30
+  set %list63_width %base_width - 200
+  set %list63_height %base_height - 200
+  set %button_65_x %base_width - 40
+  set %button_65_y %base_height - 35
+}
+
 ; this creates the layout of the mIRC C2 Box
 dialog mc2 {
-  title "mIRC C2 Box v1.1"
-  size -1 -1 180 140
+  title "mIRC C2 Box v1.2"
+  size %base_x %base_y %base_width %base_height
   option dbu
 
   ; tabs
-  tab "Main",60,0 0 180 140
+  tab "Main",60,%tab60_x %tab60_y %tab60_width %tab60_height
   tab "Sent Reports", 61
-  list 63, 0 14 180 125, autohs tab 61
-  button "Remove",65,145 130 30 10, tab 61
+  list 63, %list63_x %list63_y %list63_width %list63_height, autohs tab 61
+  button "Remove",65, %button_65_x %button_65_y 40 10, tab 61
   tab "Rec'd Reports", 62
   list 64, 0 14 180 125, hsbar tab 62
   button "Remove",67,145 130 30 10, tab 62
