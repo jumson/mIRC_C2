@@ -32,3 +32,16 @@ alias closeit {
     echo -s aguy is closed
   }
 }
+
+alias restart {
+  unload -rs %script_dir $+ \mIRC_C2_Box.mrc
+  unload -rs %script_dir $+ \c2Report-5ws.mrc
+  unload -rs %script_dir $+ \c2Report-9line.mrc
+  unload -rs %script_dir $+ \c2Report-spot.mrc
+  unload -rs %script_dir $+ \c2Report-clears.mrc  
+  load -rs %script_dir $+ \mIRC_C2_Box.mrc
+  load -rs %script_dir $+ \c2Report-5ws.mrc
+  load -rs %script_dir $+ \c2Report-9line.mrc
+  load -rs %script_dir $+ \c2Report-spot.mrc
+  load -rs %script_dir $+ \c2Report-clears.mrc
+}
