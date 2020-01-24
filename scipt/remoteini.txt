@@ -2,19 +2,14 @@ alias update {
   showlog $chan 500
 }
 
-//ensure the $scriptdir variable is set already in var
-// something: %scriptdir "C:\Users\munso\Desktop\script"
+//ensure the $script_dir variable is set already in var
+// something: %script_dir "C:\Users\munso\Desktop\script"
 ON 1:CONNECT: {
-  //  load -rs $mircdir $+ scripts\mIRC_C2_Box.mrc
-  //  load -rs $mircdir $+ scripts\c2Report-5ws.mrc
-  //  load -rs $mircdir $+ scripts\c2Report-9line.mrc
-  // load -rs $mircdir $+ scripts\c2Report-spot.mrc
-  //  load -rs $mircdir $+ scripts\c2Report-clears.mrc
-  load -rs $scriptdir $+ \mIRC_C2_Box.mrc
-  load -rs $scriptdir $+ \c2Report-5ws.mrc
-  load -rs $scriptdir $+ \c2Report-9line.mrc
-  load -rs $scriptdir $+ \c2Report-spot.mrc
-  load -rs $scriptdir $+ \c2Report-clears.mrc
+  load -rs %script_dir $+ \mIRC_C2_Box.mrc
+  load -rs %script_dir $+ \c2Report-5ws.mrc
+  load -rs %script_dir $+ \c2Report-9line.mrc
+  load -rs %script_dir $+ \c2Report-spot.mrc
+  load -rs %script_dir $+ \c2Report-clears.mrc
 }
 
 ON 1:JOIN:*: {

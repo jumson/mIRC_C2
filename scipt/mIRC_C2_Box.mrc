@@ -97,9 +97,10 @@ alias repParser {
   ; create a fileName to save the report
 
 }
-menu * {
-  mIRC C2 Box:/F4
-}
+
+;menu * {
+;  mIRC C2 Box:/F4
+;}
 
 ; for testing /debug
 alias F7 {
@@ -240,16 +241,81 @@ alias loadUsers {
 ;this creates all the sizing and spacing variables adjusted relative to base_ and size_ defaults
 ON 1:START: {
 
-  set %tab60_x %base_x + 1
-  set %tab60_y %base_y + 1
-  set %tab60_width %base_width - 1
-  set %tab60_height %base_height - 1
-  set %list63_x %tab60_x + 1
-  set %list63_y %tab60_y + 30
-  set %list63_width %base_width - 200
-  set %list63_height %base_height - 200
-  set %button_65_x %base_width - 40
-  set %button_65_y %base_height - 35
+  set %tab_x %base_x + 1
+  set %tab_y %base_y + 1
+  set %tab_width %base_width - 1
+  set %tab_height %base_height - 1
+  set %one_line_height %base_height / 16
+  set %list_x %tab_x + 5
+  set %list_y %tab_y + 35
+  set %list_width %base_width - 10
+  set %list_height %base_height - 75
+  set %button_width %base_width / 6.6
+  set %button_height %one_line_height
+  set %box_width %list_width / 2.02
+  set %box_height %tab_height / 3
+  set %rem_button_x %base_width - %button_width
+  set %rem_button_y %base_height - 35
+  set %nickbox_x %list_x
+  set %nickbox_y %list_y
+  set %nickedit_x %nickbox_x + 5
+  set %nickedit_y %nickbox_y + 19
+  set %nickedit_width %box_width - 10
+  set %nicklist_x %nickedit_x
+
+  set %misc1 %nickedit_y + %one_line_height
+  set %nicklist_y %misc1 + 5
+
+  set %misc2 %box_height - %one_line_height
+  set %nicklist_height %misc2 - 20
+
+  set %misc3 %nickbox_x + %box_width
+  set %channelbox_x %misc3 + 5
+
+  set %bottom_box1 %nickbox_y + %box_height
+  set %nick_add_y %bottom_box1 + 5
+  set %nick_del_y %bottom_box1 + 5
+
+  set %right_add_end %nicklist_x + %button_width
+  set %nick_del_x %right_add_end + 5
+
+  set %channelbox_y %nickbox_y
+  set %chanlist_x %channelbox_x + 5
+  set %chanlist_y %channelbox_y + 18
+  set %chan_width %box_width - 10
+  set %chan_height %box_height - 10
+    
+  set %set_topic_y %bottom_box1 + 5
+
+  set %right_set_end %chanlist_x + %button_width
+  set %set_topic_x %right_set_end + 5
+  
+  set %bottom_add_butt %nick_add_y + %button_height
+  set %chanface_y %bottom_add_butt + 10
+  set %chanface_width %tab_width - 10
+  set %two_buttons_high %button_height * 2
+  set %chanface_height %two_buttons_high + 25
+  set %kick_x %nicklist_x
+  set %kick_y %chanface_y + 17
+  set %ban_x %kick_x
+
+  set %kick_bottom %kick_y + %button_height
+  set %ban_y %kick_bottom + 5
+  
+  set %two_buttons_wide %button_width * 2
+  set %report_width %two_buttons_wide + 5
+
+  set %chanface_bottom %chanface_y + %chanface_height
+  set %infobox_y %chanface_bottom + 10
+
+  set %whatsLeft %tab_height - %infobox_y
+  set %infobox_height %whatsLeft - 5
+
+  set %infotext_y %infobox_y + 17
+  set %infotext_x %kick_x
+  set %infotext_height %infobox_height - 10
+  set %infotext_width %chanface_width - 10
+
 }
 
 ; this creates the layout of the mIRC C2 Box
@@ -259,13 +325,13 @@ dialog mc2 {
   option dbu
 
   ; tabs
-  tab "Main",60,%tab60_x %tab60_y %tab60_width %tab60_height
+  tab "Main",60,%tab_x %tab_y %tab_width %tab_height
   tab "Sent Reports", 61
-  list 63, %list63_x %list63_y %list63_width %list63_height, autohs tab 61
-  button "Remove",65, %button_65_x %button_65_y 40 10, tab 61
+  list 63, %list_x %list_y %list_width %list_height, autohs tab 61
+  button "Remove",65, %rem_button_x %rem_button_y %button_width %button_height, tab 61
   tab "Rec'd Reports", 62
-  list 64, 0 14 180 125, hsbar tab 62
-  button "Remove",67,145 130 30 10, tab 62
+  list 64, %list_x %list_y %list_width %list_height, hsbar tab 62
+  button "Remove",67,%rem_button_x %rem_button_y %button_width %button_height, tab 62
 
   menu "&UserNames",10
   item "&Save Defaults",11, 10
@@ -278,29 +344,31 @@ dialog mc2 {
   menu "&Alerts",70
   item "&Set Report channel alerts", 71, 70
 
-  box "Nicks/Users",30,0 14 80 52, tab 60 
-  edit "[Add IRC Handle]",31,2 22 76 11, tab 60
-  list 32,2 34 76 33, check tab 60
+  ;menu "&Show-Hide",80
+  ;item "&hide the window",81,80
 
-  box "Channels",33,81 14 98 52, tab 60
-  list 34,83 22 94 42, check tab 60  
+  box "Nicks/Users",30,%nickbox_x %nickbox_y %box_width %box_height, tab 60 
+  edit "[Add IRC Handle]",31,%nickedit_x %nickedit_y %nickedit_width %one_line_height, tab 60
+  list 32,%nicklist_x %nicklist_y %nickedit_width %nicklist_height, check tab 60
 
-  button "Add",35,2 67 35 10, tab 60
-  button "Delete",36,39 67 35 10, tab 60
-  button "Set Topic",37,130 67 45 10, tab 60
-  button "Invite",46,83 67 45 10, tab 60
+  box "Channels",33,%channelbox_x %channelbox_y %box_width %box_height, tab 60
+  list 34,%chanlist_x %chanlist_y %chan_width %chan_height, check tab 60  
 
-  text "Channel Interface",42,0 78 179 33, tab 60
-  button "kick",41,2 88 35 10, tab 60
-  button "ban",40,2 100 35 10, tab 60
-  button "OP",39,39 88 35 10, tab 60
-  button "unban",38,39 100 35 10, tab 60
+  button "Add",35,%nicklist_x %nick_del_y %button_width %button_height, tab 60
+  button "Delete",36,%nick_del_x %nick_del_y %button_width %button_height, tab 60
+  button "Set Topic",37,%set_topic_x %set_topic_y %button_width %button_height, tab 60
+  button "Invite",46,%chanlist_x %set_topic_y %button_width %button_height, tab 60
 
-  combo 43,83 88 94 10, drop, tab 60
-  button "Create Report",44,83 100 94 10, tab 60
+  box "Channel Interface",42,%nickbox_x %chanface_y %chanface_width %chanface_height, tab 60
+  button "kick",41,%kick_x %kick_y %button_width %button_height, tab 60
+  button "ban",40,%ban_x %ban_y %button_width %button_height, tab 60
+  button "OP",39,%nick_del_x %kick_y %button_width %button_height, tab 60
+  button "unban",38,%nick_del_x %ban_y %button_width %button_height, tab 60
+  combo 43,%chanlist_x %kick_y %report_width %button_height, drop, tab 60
+  button "Create Report",44,%chanlist_x %ban_y %report_width %button_height, tab 60
 
-  box "Information Box",45,0 112 178 32, tab 60
-  text "Welcome to the mIRC C2 Box v1.0!",24,2 120 170 20, tab 60
+  box "Information Box",45,%nickbox_x %infobox_y %chanface_width %infobox_height, tab 60
+  text "Welcome to the mIRC C2 Box v1.0!",24,%infotext_x %infotext_y %infotext_width %infotext_height, tab 60
 
 }
 
@@ -421,6 +489,13 @@ ON 1:DIALOG:mc2:menu:*:{
 
     dialog -mdo alertOps alertOps
   }
+
+  ; the hide window command
+  ;IF ($did == 81) {
+  ;  set %mc2x $dialog(mc2).x + $dialog(mc2).w
+  ;  set %mc2y $dialog(mc2).y
+  ;  dialog -n mc2 mc2
+  ;}
 
 
 }

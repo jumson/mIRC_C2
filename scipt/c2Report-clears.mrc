@@ -13,11 +13,14 @@
 */
 
 ;this effectivly regersters the report with the mc2 dialog
+; and this creates all the sizing and spacing variables adjusted relative to base_ and size_ defaults
 ON 1:LOAD: {
   var %repName CLEAR Report
   var %repDName clears
   hadd -m repreg %repDName %repName
   echo -s THE %repName is loaded!
+  set %report_width 300
+  set %report_height 600
 }   
 
 ON 1:DIALOG:clears:INIT:*: {
@@ -25,11 +28,13 @@ ON 1:DIALOG:clears:INIT:*: {
   did -a clears 11 $asctime($gmt,ddd mmm dd HH:nn:ss yyyy)
 }
 
+
+
 ;this creates the layout of the Clear report dialog
 dialog clears {
 
   title "CLEAR Report"
-  size %mc2x %mc2y 200 150
+  size %mc2x %mc2y %report_width %report_height
   option dbu
 
   box "Date/Time Report Prepared (in ZULU time)", 10, 10 10 180 20
