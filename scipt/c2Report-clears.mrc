@@ -19,8 +19,36 @@ ON 1:LOAD: {
   var %repDName clears
   hadd -m repreg %repDName %repName
   echo -s THE %repName is loaded!
-  set %report_width 300
-  set %report_height 600
+  set %clearreport_width 300
+  set %clearreport_height 400
+  set %clearbox_x 3
+  set %clearbox_y 3
+  set %clearbox_width %clearreport_width - 6
+  set %clearbox_height %one_line_height * 2
+  set %cleardate_x %clearbox_x + 2
+  set %cleardate_y %clearbox_y + %one_line_height
+
+  set %cleardatebuffer %clearbox_width - %button_width
+  set %cleardate_width %cleardatebuffer - 4
+  set %cleardate_height %one_line_height
+
+  set %cleardateright %cleardate_x + %cleardate_width
+  set %cleardaterefresh_x %cleardateright + 2
+
+  set %cleardateboxbottom %clearbox_x + %clearbox_height
+  set %cleartextbox_y %cleardateboxbottom + 5
+
+  set %clearbottombuffer %clearreport_height - 100
+  set %cleartextbox_height %clearbottombuffer - 5
+
+  set %cleartextedit_y %cleartextbox_y + %one_line_height
+  set %cleartextedit_width %clearbox_width - 4
+  set %cleartextedit_height %cleartextbox_height - %one_line_height
+ 
+  set %cleartextedit_bottom %cleartextedit_y + %cleartextedit_height
+  set %clearbottombutton_y %cleartextedit_bottom + 5
+  set %clearbottombutton_x %clearbox_x + 150
+
 }   
 
 ON 1:DIALOG:clears:INIT:*: {
@@ -34,18 +62,18 @@ ON 1:DIALOG:clears:INIT:*: {
 dialog clears {
 
   title "CLEAR Report"
-  size %mc2x %mc2y %report_width %report_height
+  size %mc2x %mc2y %clearreport_width %clearreport_height
   option dbu
 
-  box "Date/Time Report Prepared (in ZULU time)", 10, 10 10 180 20
-  edit $fulldate, 11, 12 18 130 10
-  button "Refresh",12, 145 18 35 10
+  box "Date/Time Report Prepared (in ZULU time)", 10, %clearbox_x %clearbox_y %clearbox_width %clearbox_height
+  edit $fulldate, 11, %cleardate_x %cleardate_y %cleardate_width %cleardate_height
+  button "Refresh",12, %cleardaterefresh_x %cleardate_y %button_width %button_height
 
-  box "Text of the CLEAR Report",20, 10 30 180 100
-  edit "",21,12 38 176 90, vsbar, multi, return
+  box "Text of the CLEAR Report",20, %clearbox_x %cleartextbox_y %clearbox_width %cleartextbox_height
+  edit "",21,%cleardate_x %cleartextedit_y %cleartextedit_width %cleartextedit_height, vsbar, multi, return
 
-  check "Also Send to text file", 80, 100 132 55 10, left
-  button "Send",100,165 132 30 10, ok
+  check "Also Send to WORD", 80, %cleardate_x %clearbottombutton_y %cleardate_width %cleardate_height, left
+  button "Send",100,%cleardaterefresh_x %clearbottombutton_y %button_width %button_height, ok
 }
 
 ; this catches all sclicks from the "clears" dialog
