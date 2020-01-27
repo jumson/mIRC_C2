@@ -1,0 +1,4 @@
+%base_height 400
+%base_width 600
+%base_x -1
+%base_y -1
