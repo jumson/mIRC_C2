@@ -98,9 +98,9 @@ alias repParser {
 
 }
 
-;menu * {
-;  mIRC C2 Box:/F4
-;}
+menu * {
+  mIRC C2 Box:/F4
+}
 
 ; for testing /debug
 alias F7 {
@@ -340,6 +340,10 @@ dialog mc2 {
   menu "&Channels",20
   item "&Create Random Flash event channel",21,20
   item "&Create Custom Flash event channel",22,20
+
+  menu "&Setup",90
+  item "&Choose Reports Location",91,90
+  item "&Create Custom Flash event channel",92,90
 
   menu "&Alerts",70
   item "&Set Report channel alerts", 71, 70
@@ -753,6 +757,9 @@ alias loadReports {
     inc %x
   }
 }
+
+
+
 
 ; this happens when the mc2 dialog is opened
 ON 1:DIALOG:mc2:INIT:*: {
